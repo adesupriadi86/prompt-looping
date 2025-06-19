@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembuat Prompt Seamless Loop</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for textarea focus */
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5); /* ring-purple-400 */
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-indigo-100 p-6 sm:p-10 text-gray-800">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-200">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-purple-700 mb-6 border-b-2 pb-4 border-purple-200">
+            ✨ Pembuat Prompt Seamless Loop ✨
+        </h1>
+        <p class="text-center text-gray-600 mb-8 leading-relaxed">
+            Gunakan aplikasi ini untuk membuat prompt video *seamless loop* yang sempurna untuk AI generator seperti Veo 2. Isi detail di bawah ini!
+        </p>
+
+        <!-- Input Form Section -->
+        <div class="space-y-6">
+            <!-- Detail Subjek Utama & Posisi Awal Input -->
+            <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 shadow-sm">
+                <label for="subjectDetails" class="block text-lg font-semibold text-purple-700 mb-2">
+                    1. Detail Subjek Utama & Posisi Awal:
+                </label>
+                <textarea
+                    id="subjectDetails"
+                    class="w-full p-3 border border-purple-300 rounded-lg transition duration-200 resize-y min-h-[80px]"
+                    rows="3"
+                    placeholder="Contoh: an old man with a long white beard and long white hair, wearing a flowing blue robe, sitting by the edge of a serene river"
+                >an old man with a long white beard and long white hair, wearing a flowing blue robe, sitting by the edge of a serene river</textarea>
+            </div>
+
+            <!-- Gerakan & Aksi Subjek Input -->
+            <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 shadow-sm">
+                <label for="subjectMovements" class="block text-lg font-semibold text-purple-700 mb-2">
+                    2. Gerakan & Aksi Subjek (Bersiklus/Kontinu):
+                </label>
+                <textarea
+                    id="subjectMovements"
+                    class="w-full p-3 border border-purple-300 rounded-lg transition duration-200 resize-y min-h-[80px]"
+                    rows="3"
+                    placeholder="Contoh: He is devoutly playing a wooden flute, his fingers moving rhythmically and continuously on the holes, head slightly bowed"
+                >He is devoutly playing a wooden flute, his fingers moving rhythmically and continuously on the holes, head slightly bowed</textarea>
+            </div>
+
+            <!-- Latar Belakang & Lingkungan Input -->
+            <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 shadow-sm">
+                <label for="backgroundDetails" class="block text-lg font-semibold text-purple-700 mb-2">
+                    3. Latar Belakang & Lingkungan (Elemen Bergerak Kontinu):
+                </label>
+                <textarea
+                    id="backgroundDetails"
+                    class="w-full p-3 border border-purple-300 rounded-lg transition duration-200 resize-y min-h-[80px]"
+                    rows="3"
+                    placeholder="Contoh: In the background, a calm river flows endlessly and smoothly. The riverbank is rocky with lush green and yellow foliage"
+                >In the background, a calm river flows endlessly and smoothly. The riverbank is rocky with lush green and yellow foliage</textarea>
+            </div>
+
+            <!-- Gaya Visual & Pencerahan Input -->
+            <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 shadow-sm">
+                <label for="visualStyle" class="block text-lg font-semibold text-purple-700 mb-2">
+                    4. Gaya Visual & Pencerahan:
+                </label>
+                <textarea
+                    id="visualStyle"
+                    class="w-full p-3 border border-purple-300 rounded-lg transition duration-200 resize-y min-h-[80px]"
+                    rows="3"
+                    placeholder="Contoh: Cinematic, warm lighting, shallow depth of field, creating a peaceful and meditative atmosphere."
+                >Cinematic, soft natural lighting, shallow depth of field, creating a peaceful and meditative atmosphere</textarea>
+            </div>
+
+            <!-- Detail Audio Input -->
+            <div class="bg-purple-50 p-5 rounded-xl border border-purple-200 shadow-sm">
+                <label for="audioDetails" class="block text-lg font-semibold text-purple-700 mb-2">
+                    5. Detail Audio (Opsional, untuk looping audio):
+                </label>
+                <textarea
+                    id="audioDetails"
+                    class="w-full p-3 border border-purple-300 rounded-lg transition duration-200 resize-y min-h-[80px]"
+                    rows="3"
+                    placeholder="Contoh: Gentle, continuously looping sounds of soft cat breathing and consistent fireplace crackling are heard."
+                >The serene, perfectly looped sounds of the wooden flute and the constant flow of the river are seamlessly integrated</textarea>
+            </div>
+        </div>
+
+        <!-- Generated Prompt Output -->
+        <div class="mt-8 bg-indigo-50 p-6 rounded-2xl shadow-md border border-indigo-200">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Prompt Anda yang Dihasilkan:</h2>
+            <div class="relative">
+                <textarea
+                    id="generatedPrompt"
+                    readonly
+                    class="w-full p-4 border border-indigo-300 rounded-lg bg-indigo-100 text-indigo-900 font-mono text-sm leading-relaxed cursor-text resize-y min-h-[150px] focus:outline-none"
+                    rows="6"
+                ></textarea>
+                <button
+                    id="copyButton"
+                    class="absolute top-3 right-3 p-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition duration-200 text-sm"
+                    aria-label="Salin Prompt"
+                    title="Salin Prompt ke Clipboard"
+                >
+                    Salin
+                </button>
+            </div>
+            <p class="mt-4 text-center text-gray-600 text-sm">
+                Salin prompt di atas dan gunakan di AI video generator pilihan Anda (misalnya Veo 2).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Get references to all input fields and the output textarea
+        const subjectDetails = document.getElementById('subjectDetails');
+        const subjectMovements = document.getElementById('subjectMovements');
+        const backgroundDetails = document.getElementById('backgroundDetails');
+        const visualStyle = document.getElementById('visualStyle');
+        const audioDetails = document.getElementById('audioDetails');
+        const generatedPromptOutput = document.getElementById('generatedPrompt');
+        const copyButton = document.getElementById('copyButton');
+
+        /**
+         * Generates the complete seamless loop prompt based on current input values.
+         * It follows the predefined perfect prompt structure for Veo 2.
+         */
+        function generatePrompt() {
+            // Part 1: Looping Goal & Keywords
+            const part1 = "Seamless loop video featuring ";
+
+            // Part 2: Camera Composition (Static is assumed for perfect loops)
+            const part2 = "Captured with a static camera shot, showing ";
+
+            // Part 3: Main Subject & Initial Position
+            const part3 = subjectDetails.value ? `${subjectDetails.value}. ` : '';
+
+            // Part 4: Subject Movements (Cyclical/Continuous)
+            const part4 = subjectMovements.value ? `${subjectMovements.value}. ` : '';
+
+            // Part 5: Background & Environment (Continuously Moving Elements)
+            const part5 = backgroundDetails.value ? `${backgroundDetails.value}. ` : '';
+
+            // Part 6: Visual Style & Lighting
+            const part6 = visualStyle.value ? `${visualStyle.value}. ` : '';
+
+            // Part 7: Looping Quality & Audio (Reinforcement)
+            const audioPart = audioDetails.value ? `${audioDetails.value} and are perfectly synced.` : '';
+            const part7 = `The video is designed to loop perfectly, with absolutely no noticeable beginning or end, creating a continuous, tranquil experience. ${audioPart}`;
+
+            // Combine all parts to form the final prompt
+            const finalPrompt = `${part1}${part2}${part3}${part4}${part5}${part6}${part7}`;
+            generatedPromptOutput.value = finalPrompt.trim(); // Display the generated prompt
+        }
+
+        /**
+         * Handles the click event for the copy button, copying the generated prompt to clipboard.
+         */
+        function handleCopyClick() {
+            const promptToCopy = generatedPromptOutput.value;
+            if (!promptToCopy) {
+                alert('Prompt kosong, tidak ada yang bisa disalin.');
+                return;
+            }
+
+            // Create a temporary textarea element
+            const tempTextarea = document.createElement('textarea');
+            tempTextarea.value = promptToCopy;
+            
+            // Make the textarea invisible and append it to the document
+            tempTextarea.style.position = 'fixed';
+            tempTextarea.style.left = '-9999px';
+            tempTextarea.style.top = '0';
+            document.body.appendChild(tempTextarea);
+            
+            try {
+                tempTextarea.select(); // Select the text
+                // For mobile devices, ensure the entire text is selected
+                tempTextarea.setSelectionRange(0, tempTextarea.value.length); 
+                
+                const successful = document.execCommand('copy'); // Execute copy command
+                document.body.removeChild(tempTextarea); // Remove the temporary textarea
+                
+                if (successful) {
+                    alert('Prompt berhasil disalin ke clipboard!');
+                } else {
+                    // Fallback for when execCommand fails
+                    alert('Gagal menyalin prompt secara otomatis. Mohon salin manual: Tekan Ctrl+C (atau Cmd+C di Mac) setelah menyorot teks.');
+                }
+            } catch (err) {
+                document.body.removeChild(tempTextarea); // Ensure removal even on error
+                console.error('Gagal menyalin prompt:', err);
+                alert('Terjadi kesalahan saat menyalin. Mohon salin manual: Tekan Ctrl+C (atau Cmd+C di Mac) setelah menyorot teks.');
+            }
+        }
+
+        // Add event listeners for input changes to regenerate the prompt
+        subjectDetails.addEventListener('input', generatePrompt);
+        subjectMovements.addEventListener('input', generatePrompt);
+        backgroundDetails.addEventListener('input', generatePrompt);
+        visualStyle.addEventListener('input', generatePrompt);
+        audioDetails.addEventListener('input', generatePrompt);
+
+        // Add event listener for the copy button
+        copyButton.addEventListener('click', handleCopyClick);
+
+        // Initial generation of the prompt when the page loads
+        document.addEventListener('DOMContentLoaded', generatePrompt);
+    </script>
+</body>
+</html>
